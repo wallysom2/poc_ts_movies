@@ -1,8 +1,9 @@
-import movieService from '../services/movieService';
+import { Request, Response } from 'express';
+import movieService from '../services/movieService.js';
 
-export async function getAllMovies() {
+export async function getAllMovies(req: Request, res: Response) {
     const movies = await movieService.getAllMovies();
-    return movies;
+    res.send (movies)
 }
 
 export async function getMovieById() {

@@ -1,12 +1,13 @@
 import express, { json } from 'express';
+import movieRouter from './routes/movieRouter.js';
+import genreRouter from './routes/genreRouter.js';
 
 const app = express();
 
 app.use(json());
 
-app.get('/', (req, res) => {
-    res.send('It works!');
-});
+
+app.use('/', movieRouter);
 
 
 const port = process.env.PORT || 5000;
