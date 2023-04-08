@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import movieService from '../services/movieService.js';
+import { MovieInput } from '../repositories/movieRepository.js';
 
 export async function getAllMovies(req: Request, res: Response) {
     const movies = await movieService.getAllMovies();
@@ -20,14 +21,14 @@ export async function getMovieById(req: Request, res: Response) {
 }
 
 export async function createMovie(req: Request, res: Response) {
-
-    const game = req.body;
+    const movie = req.body as MovieInput;
     try {
-        await movieService.createMovie(game);
+        await movieService.createMovie(movie);
     } catch (error) {
         if (error.message === "already_exists") {
             res.sendStatus(httpStatus.CONFLICT);
-        
-        }       
+        }
+        res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+       
     }   
 }
