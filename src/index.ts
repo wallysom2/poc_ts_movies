@@ -7,8 +7,8 @@ const app = express();
 
 app.use(json());
 
-
 app.use(movieRouter);
+app.use(genreRouter);
 
 
 const port = process.env.PORT || 5000;
