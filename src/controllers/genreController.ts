@@ -33,3 +33,4 @@ export async function createGenre (req: Request, res: Response) {
     }
 }
 
+

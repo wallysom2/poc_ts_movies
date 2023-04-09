@@ -24,6 +24,7 @@ async function createGenre (genre: GenreInput) {
     return await genreRepository.insertGenre(genre);
 }
 
+
 const genreService = {
     getAllGenres,
     getGenreById,
