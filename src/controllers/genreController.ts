@@ -2,14 +2,14 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 
 import genreService from '../services/genreService.js';
-import { GenreInput } from "../services/genreService.js";
+import { GenreInput } from "../models"
 
-export async function getAllGenres (req: Request, res: Response) {
+export async function getAllGenres (req: Request, res: Response): Promise<void> {
     const genres = await genreService.getAllGenres();
     res.send (genres)
 }
 
-export async function getGenreById (req: Request, res: Response) {
+export async function getGenreById (req: Request, res: Response): Promise<void> {
     const id = parseInt (req.params.id);
 
     try {
@@ -22,7 +22,7 @@ export async function getGenreById (req: Request, res: Response) {
     }
 }
 
-export async function createGenre (req: Request, res: Response) {
+export async function createGenre (req: Request, res: Response): Promise<void> {
     const genre = req.body as GenreInput;
     try {
         await genreService.createGenre(genre);

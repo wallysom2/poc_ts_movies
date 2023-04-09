@@ -1,4 +1,5 @@
-import movieRepository, { MovieInput } from '../repositories/movieRepository.js';
+import movieRepository from '../repositories/movieRepository.js';
+import { MovieInput } from "../models"
 
 async function getAllMovies () {
     const movies = await movieRepository.getMovies();

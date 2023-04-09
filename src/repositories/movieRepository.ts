@@ -1,10 +1,10 @@
 import prisma from "../config/database.js";
 import { Movie } from "@prisma/client";
 
-export type MovieInput = Omit<Movie, "id">;
+import { MovieInput } from "../models"
 
 
-async function getMovies() {
+async function getMovies(){
     return await prisma.movie.findMany({
         select: {
             id: true,
@@ -19,19 +19,19 @@ async function getMovies() {
  
 }
 
-async function getMovieById( id: number) {
+async function getMovieById( id: number): Promise<Movie> {
  return await prisma.movie.findUnique({
         where: {id}
     });
 }
 
-async function getMovieByName( title: string) {
+async function getMovieByName( title: string): Promise<Movie> {
     return await prisma.movie.findUnique({
            where: {title}
        });
    }
 
-async function insertMovie(movie: MovieInput) {
+async function insertMovie(movie: MovieInput): Promise<Movie> {
     return await prisma.movie.create({
         data: movie
     });

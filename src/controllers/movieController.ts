@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import movieService from '../services/movieService.js';
-import { MovieInput } from '../repositories/movieRepository.js';
+import { MovieInput } from "../models"
 
-export async function getAllMovies(req: Request, res: Response) {
+export async function getAllMovies(req: Request, res: Response): Promise<void> {
     const movies = await movieService.getAllMovies();
     console.log (movies)
     res.send (movies)
 }
 
-export async function getMovieById(req: Request, res: Response) {
+export async function getMovieById(req: Request, res: Response): Promise<void> {
     const id = parseInt (req.params.id);
     try {
         const movie = await movieService.getMovieById(id);
@@ -21,7 +21,7 @@ export async function getMovieById(req: Request, res: Response) {
     }
 }
 
-export async function createMovie(req: Request, res: Response) {
+export async function createMovie(req: Request, res: Response): Promise<void>{
     const movie = req.body as MovieInput;
     try {
         await movieService.createMovie(movie);
