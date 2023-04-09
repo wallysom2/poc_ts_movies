@@ -4,16 +4,16 @@ import httpStatus from 'http-status';
 import genreService from '../services/genreService.js';
 import { GenreInput } from "../services/genreService.js";
 
-export function getAllGenres (req: Request, res: Response) {
-    const genres = genreService.getAllGenres();
+export async function getAllGenres (req: Request, res: Response) {
+    const genres = await genreService.getAllGenres();
     res.send (genres)
 }
 
-export function getGenreById (req: Request, res: Response) {
+export async function getGenreById (req: Request, res: Response) {
     const id = parseInt (req.params.id);
 
     try {
-        const genre =  genreService.getGenreById(id);
+        const genre = await genreService.getGenreById(id);
         res.send(genre);
         
     } catch (error) {
@@ -22,10 +22,10 @@ export function getGenreById (req: Request, res: Response) {
     }
 }
 
-export function createGenre (req: Request, res: Response) {
+export async function createGenre (req: Request, res: Response) {
     const genre = req.body as GenreInput;
     try {
-        genreService.createGenre(genre);
+        await genreService.createGenre(genre);
         res.sendStatus(httpStatus.CREATED);
     } catch (error) {
         console.log (error)

@@ -5,9 +5,16 @@ export type MovieInput = Omit<Movie, "id">;
 
 
 async function getMovies() {
-    const movies = await prisma.movie.findMany({
-        include: {
-             Genre: true,
+//faca apenas o Genre aparecer na lista de filmes e nao o id nem o name
+    return await prisma.movie.findMany({
+        select: {
+            id: true,
+            title: true,
+            Genre: {
+                select: {
+                    name: true
+                }
+            }
         }
     });
 }

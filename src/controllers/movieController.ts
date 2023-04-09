@@ -5,6 +5,7 @@ import { MovieInput } from '../repositories/movieRepository.js';
 
 export async function getAllMovies(req: Request, res: Response) {
     const movies = await movieService.getAllMovies();
+    console.log (movies)
     res.send (movies)
 }
 
@@ -24,6 +25,7 @@ export async function createMovie(req: Request, res: Response) {
     const movie = req.body as MovieInput;
     try {
         await movieService.createMovie(movie);
+        res.sendStatus(httpStatus.CREATED);
     } catch (error) {
         if (error.message === "already_exists") {
             res.sendStatus(httpStatus.CONFLICT);
