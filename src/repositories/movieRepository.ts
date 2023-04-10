@@ -49,13 +49,21 @@ async function getMoviesByGenre(id: number) {
     });
 }
 
+async function updateMovie(id: number, movie: MovieInput) {
+    return await prisma.movie.update({
+        where: {id},
+        data: movie
+    });
+}
+
 const movieRepository = {
     getMovies,
     getMovieById,
     getMovieByName,
     insertMovie,
     deleteMovie,
-    getMoviesByGenre
+    getMoviesByGenre,
+    updateMovie
 };
 
 export default movieRepository;

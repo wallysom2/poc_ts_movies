@@ -40,12 +40,21 @@ async function getMoviesByGenre (id: number) {
     return movies;
 }
 
+async function updateMovie (id: number, movie: MovieInput) {
+    const movieExists = await movieRepository.getMovieById(id);
+    if (!movieExists) {
+        throw { message: "not_found" };
+    }
+    await movieRepository.updateMovie(id, movie);
+}
+
 const movieService = {
     getAllMovies,
     getMovieById,
     createMovie,
     deleteMovie,
-    getMoviesByGenre
+    getMoviesByGenre,
+    updateMovie
 };
 
 export default movieService;

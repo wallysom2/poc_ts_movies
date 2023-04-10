@@ -58,3 +58,16 @@ export async function getMoviesByGenre(req: Request, res: Response): Promise<voi
     }
 }
 
+export async function updateMovie(req: Request, res: Response): Promise<void> {
+    const id = parseInt (req.params.id);
+    const movie = req.body as MovieInput;
+    try {
+        await movieService.updateMovie(id, movie);
+        res.sendStatus(httpStatus.OK);
+    } catch (error) {
+        if (error.message === "not_found") {
+            res.sendStatus(httpStatus.NOT_FOUND);
+        }
+    }
+}
+
