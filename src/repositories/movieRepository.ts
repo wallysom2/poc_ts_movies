@@ -5,18 +5,18 @@ import { MovieInput } from "../models"
 
 
 async function getMovies(){
-    return await prisma.movie.findMany({
-        select: {
-            id: true,
-            title: true,
-            Genre: {
-                select: {
-                    name: true
-                }
+return await prisma.movie.findMany({
+    select: {
+        id: true,
+        title: true,
+        Genre: {
+            select: {
+                name: true,
+                id: true
             }
         }
-    });
- 
+    }
+});
 }
 
 async function getMovieById( id: number): Promise<Movie> {
@@ -37,11 +37,25 @@ async function insertMovie(movie: MovieInput): Promise<Movie> {
     });
 }
 
+async function deleteMovie(id: number) {
+    return await prisma.movie.delete({
+        where: {id}
+    });
+}
+
+async function getMoviesByGenre(id: number) {
+    return await prisma.movie.findMany({
+        where: {genreId: id}
+    });
+}
+
 const movieRepository = {
     getMovies,
     getMovieById,
     getMovieByName,
-    insertMovie
+    insertMovie,
+    deleteMovie,
+    getMoviesByGenre
 };
 
 export default movieRepository;

@@ -23,10 +23,29 @@ async function createMovie (movie: MovieInput) {
     await movieRepository.insertMovie(movie);
 }
 
+async function deleteMovie (id: number) {
+    const movie = await movieRepository.getMovieById(id);
+    if (!movie) {
+        console.log ("Movie not found service")
+        throw { message: "not_found" };
+    }
+    await movieRepository.deleteMovie(id);
+}
+
+async function getMoviesByGenre (id: number) {
+    const movies = await movieRepository.getMoviesByGenre(id);
+    if (!movies) {
+        throw { message: "not_found" };
+    }
+    return movies;
+}
+
 const movieService = {
     getAllMovies,
     getMovieById,
-    createMovie
+    createMovie,
+    deleteMovie,
+    getMoviesByGenre
 };
 
 export default movieService;

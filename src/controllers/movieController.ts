@@ -5,7 +5,6 @@ import { MovieInput } from "../models"
 
 export async function getAllMovies(req: Request, res: Response): Promise<void> {
     const movies = await movieService.getAllMovies();
-    console.log (movies)
     res.send (movies)
 }
 
@@ -34,3 +33,28 @@ export async function createMovie(req: Request, res: Response): Promise<void>{
        
     }   
 }
+
+export async function deleteMovie(req: Request, res: Response): Promise<void> {
+    const id = parseInt (req.params.id);
+    try {
+        await movieService.deleteMovie(id);
+        res.sendStatus(httpStatus.OK);
+    } catch (error) {
+        if (error.message === "not_found") {
+            res.sendStatus(httpStatus.NOT_FOUND);
+        }
+    }
+}
+
+export async function getMoviesByGenre(req: Request, res: Response): Promise<void> {
+    const id = parseInt (req.params.id);
+    try {
+        const movies = await movieService.getMoviesByGenre(id);
+        res.send(movies);
+    } catch (error) {
+        if (error.message === "not_found") {
+            res.sendStatus(httpStatus.NOT_FOUND);
+        }
+    }
+}
+
